@@ -26,11 +26,11 @@ export interface SubmitFeedbackRequest {
      */
     isPositive: boolean;
     /**
-     * 
-     * @type {}
+     * Optional metadata (e.g., user_agent, session_id, etc.)
+     * @type {object}
      * @memberof SubmitFeedbackRequest
      */
-    metadata?:  | null;
+    metadata?: object | null;
     /**
      * The response ID from the completion request
      * @type {string}
@@ -59,7 +59,7 @@ export function SubmitFeedbackRequestFromJSONTyped(json: any, ignoreDiscriminato
     return {
         
         'isPositive': json['is_positive'],
-        'metadata': json['metadata'] == null ? undefined : FromJSON(json['metadata']),
+        'metadata': json['metadata'] == null ? undefined : json['metadata'],
         'responseId': json['response_id'],
     };
 }
@@ -76,7 +76,7 @@ export function SubmitFeedbackRequestToJSONTyped(value?: SubmitFeedbackRequest |
     return {
         
         'is_positive': value['isPositive'],
-        'metadata': ToJSON(value['metadata']),
+        'metadata': value['metadata'],
         'response_id': value['responseId'],
     };
 }
