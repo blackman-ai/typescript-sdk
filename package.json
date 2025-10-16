@@ -1,0 +1,35 @@
+{
+  "name": "@blackman-ai/sdk",
+  "version": "0.0.2",
+  "description": "Official TypeScript SDK for Blackman AI - Optimize your AI API costs",
+  "author": "Blackman AI <support@blackman.ai>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/blackman-ai/typescript-sdk.git"
+  },
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.esm.json",
+    "prepare": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^4.0 || ^5.0"
+  },
+  "keywords": [
+    "blackman",
+    "ai",
+    "llm",
+    "openai",
+    "anthropic",
+    "cost-optimization",
+    "api-client"
+  ],
+  "homepage": "https://www.useblackman.ai",
+  "bugs": {
+    "url": "https://github.com/blackman-ai/typescript-sdk/issues"
+  },
+  "license": "MIT"
+}
