@@ -23,7 +23,7 @@ npm install @blackman-ai/sdk
 import { Configuration, CompletionsApi } from '@blackman-ai/sdk';
 
 const config = new Configuration({
-  basePath: 'https://api.useblackman.ai',
+  basePath: 'https://app.useblackman.ai',
   accessToken: 'sk_your_blackman_api_key'  // Get from https://app.useblackman.ai
 });
 
@@ -47,10 +47,10 @@ Get your API key from the [Blackman AI Dashboard](https://app.useblackman.ai/set
 
 ## Documentation
 
-- [Full API Reference](https://docs.useblackman.ai/api-reference)
-- [Getting Started Guide](https://docs.useblackman.ai/getting-started)
+- [Full API Reference](https://app.useblackman.ai/docs)
+- [Getting Started Guide](https://app.useblackman.ai/docs/getting-started)
 - [TypeScript Examples](https://github.com/blackman-ai/typescript-sdk/tree/main/examples)
-- [Migration from OpenAI](https://docs.useblackman.ai/migration/openai)
+- [Migration from OpenAI](https://app.useblackman.ai/docs/migration/openai)
 
 ## Support
 
