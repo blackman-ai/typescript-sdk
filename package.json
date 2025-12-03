@@ -1,6 +1,6 @@
 {
   "name": "@blackman-ai/sdk",
-  "version": "0.0.4",
+  "version": "0.0.7",
   "description": "Official TypeScript SDK for Blackman AI - Optimize your AI API costs",
   "author": "Blackman AI <support@useblackman.ai>",
   "repository": {
