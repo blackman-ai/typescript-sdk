@@ -13,71 +13,81 @@
  */
 
 import { mapValues } from '../runtime';
-import type { MessageContent } from './MessageContent';
+import type { ImageUrl } from './ImageUrl';
 import {
-    MessageContentFromJSON,
-    MessageContentFromJSONTyped,
-    MessageContentToJSON,
-    MessageContentToJSONTyped,
-} from './MessageContent';
+    ImageUrlFromJSON,
+    ImageUrlFromJSONTyped,
+    ImageUrlToJSON,
+    ImageUrlToJSONTyped,
+} from './ImageUrl';
 
 /**
  * 
  * @export
- * @interface Message
+ * @interface ContentPartOneOf1
  */
-export interface Message {
+export interface ContentPartOneOf1 {
     /**
      * 
-     * @type {MessageContent}
-     * @memberof Message
+     * @type {ImageUrl}
+     * @memberof ContentPartOneOf1
      */
-    content: MessageContent;
+    imageUrl: ImageUrl;
     /**
-     * "user", "assistant", "system"
+     * 
      * @type {string}
-     * @memberof Message
+     * @memberof ContentPartOneOf1
      */
-    role: string;
+    type: ContentPartOneOf1TypeEnum;
 }
 
+
 /**
- * Check if a given object implements the Message interface.
+ * @export
  */
-export function instanceOfMessage(value: object): value is Message {
-    if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('role' in value) || value['role'] === undefined) return false;
+export const ContentPartOneOf1TypeEnum = {
+    ImageUrl: 'image_url'
+} as const;
+export type ContentPartOneOf1TypeEnum = typeof ContentPartOneOf1TypeEnum[keyof typeof ContentPartOneOf1TypeEnum];
+
+
+/**
+ * Check if a given object implements the ContentPartOneOf1 interface.
+ */
+export function instanceOfContentPartOneOf1(value: object): value is ContentPartOneOf1 {
+    if (!('imageUrl' in value) || value['imageUrl'] === undefined) return false;
+    if (!('type' in value) || value['type'] === undefined) return false;
     return true;
 }
 
-export function MessageFromJSON(json: any): Message {
-    return MessageFromJSONTyped(json, false);
+export function ContentPartOneOf1FromJSON(json: any): ContentPartOneOf1 {
+    return ContentPartOneOf1FromJSONTyped(json, false);
 }
 
-export function MessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Message {
+export function ContentPartOneOf1FromJSONTyped(json: any, ignoreDiscriminator: boolean): ContentPartOneOf1 {
     if (json == null) {
         return json;
     }
     return {
         
-        'content': MessageContentFromJSON(json['content']),
-        'role': json['role'],
+        'imageUrl': ImageUrlFromJSON(json['image_url']),
+        'type': json['type'],
     };
 }
 
-export function MessageToJSON(json: any): Message {
-    return MessageToJSONTyped(json, false);
+export function ContentPartOneOf1ToJSON(json: any): ContentPartOneOf1 {
+    return ContentPartOneOf1ToJSONTyped(json, false);
 }
 
-export function MessageToJSONTyped(value?: Message | null, ignoreDiscriminator: boolean = false): any {
+export function ContentPartOneOf1ToJSONTyped(value?: ContentPartOneOf1 | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'content': MessageContentToJSON(value['content']),
-        'role': value['role'],
+        'image_url': ImageUrlToJSON(value['imageUrl']),
+        'type': value['type'],
     };
 }
 

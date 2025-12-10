@@ -12,72 +12,67 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { MessageContent } from './MessageContent';
+import type { ContentPartOneOf } from './ContentPartOneOf';
 import {
-    MessageContentFromJSON,
-    MessageContentFromJSONTyped,
-    MessageContentToJSON,
-    MessageContentToJSONTyped,
-} from './MessageContent';
+    instanceOfContentPartOneOf,
+    ContentPartOneOfFromJSON,
+    ContentPartOneOfFromJSONTyped,
+    ContentPartOneOfToJSON,
+} from './ContentPartOneOf';
+import type { ContentPartOneOf1 } from './ContentPartOneOf1';
+import {
+    instanceOfContentPartOneOf1,
+    ContentPartOneOf1FromJSON,
+    ContentPartOneOf1FromJSONTyped,
+    ContentPartOneOf1ToJSON,
+} from './ContentPartOneOf1';
 
 /**
- * 
+ * @type ContentPart
+ * Content part for multimodal messages (vision support)
  * @export
- * @interface Message
  */
-export interface Message {
-    /**
-     * 
-     * @type {MessageContent}
-     * @memberof Message
-     */
-    content: MessageContent;
-    /**
-     * "user", "assistant", "system"
-     * @type {string}
-     * @memberof Message
-     */
-    role: string;
+export type ContentPart = ContentPartOneOf | ContentPartOneOf1;
+
+export function ContentPartFromJSON(json: any): ContentPart {
+    return ContentPartFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the Message interface.
- */
-export function instanceOfMessage(value: object): value is Message {
-    if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('role' in value) || value['role'] === undefined) return false;
-    return true;
-}
-
-export function MessageFromJSON(json: any): Message {
-    return MessageFromJSONTyped(json, false);
-}
-
-export function MessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Message {
+export function ContentPartFromJSONTyped(json: any, ignoreDiscriminator: boolean): ContentPart {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'content': MessageContentFromJSON(json['content']),
-        'role': json['role'],
-    };
+    if (typeof json !== 'object') {
+        return json;
+    }
+    if (instanceOfContentPartOneOf(json)) {
+        return ContentPartOneOfFromJSONTyped(json, true);
+    }
+    if (instanceOfContentPartOneOf1(json)) {
+        return ContentPartOneOf1FromJSONTyped(json, true);
+    }
+
+    return {} as any;
 }
 
-export function MessageToJSON(json: any): Message {
-    return MessageToJSONTyped(json, false);
+export function ContentPartToJSON(json: any): any {
+    return ContentPartToJSONTyped(json, false);
 }
 
-export function MessageToJSONTyped(value?: Message | null, ignoreDiscriminator: boolean = false): any {
+export function ContentPartToJSONTyped(value?: ContentPart | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+    if (typeof value !== 'object') {
+        return value;
+    }
+    if (instanceOfContentPartOneOf(value)) {
+        return ContentPartOneOfToJSON(value as ContentPartOneOf);
+    }
+    if (instanceOfContentPartOneOf1(value)) {
+        return ContentPartOneOf1ToJSON(value as ContentPartOneOf1);
+    }
 
-    return {
-        
-        'content': MessageContentToJSON(value['content']),
-        'role': value['role'],
-    };
+    return {};
 }
 

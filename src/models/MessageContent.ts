@@ -12,72 +12,58 @@
  * Do not edit the class manually.
  */
 
-import { mapValues } from '../runtime';
-import type { MessageContent } from './MessageContent';
+import type { ContentPart } from './ContentPart';
 import {
-    MessageContentFromJSON,
-    MessageContentFromJSONTyped,
-    MessageContentToJSON,
-    MessageContentToJSONTyped,
-} from './MessageContent';
+    instanceOfContentPart,
+    ContentPartFromJSON,
+    ContentPartFromJSONTyped,
+    ContentPartToJSON,
+} from './ContentPart';
 
 /**
- * 
+ * @type MessageContent
+ * Message content can be either a simple string or an array of content parts (for vision)
  * @export
- * @interface Message
  */
-export interface Message {
-    /**
-     * 
-     * @type {MessageContent}
-     * @memberof Message
-     */
-    content: MessageContent;
-    /**
-     * "user", "assistant", "system"
-     * @type {string}
-     * @memberof Message
-     */
-    role: string;
+export type MessageContent = Array<ContentPart> | string;
+
+export function MessageContentFromJSON(json: any): MessageContent {
+    return MessageContentFromJSONTyped(json, false);
 }
 
-/**
- * Check if a given object implements the Message interface.
- */
-export function instanceOfMessage(value: object): value is Message {
-    if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('role' in value) || value['role'] === undefined) return false;
-    return true;
-}
-
-export function MessageFromJSON(json: any): Message {
-    return MessageFromJSONTyped(json, false);
-}
-
-export function MessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Message {
+export function MessageContentFromJSONTyped(json: any, ignoreDiscriminator: boolean): MessageContent {
     if (json == null) {
         return json;
     }
-    return {
-        
-        'content': MessageContentFromJSON(json['content']),
-        'role': json['role'],
-    };
+    if (Array.isArray(json)) {
+        if (json.every(item => typeof item === 'object')) {
+            if (json.every(item => instanceOfContentPart(item))) {
+                return json.map(value => ContentPartFromJSONTyped(value, true));
+            }
+        }
+        return json;
+    }
+
+    return {} as any;
 }
 
-export function MessageToJSON(json: any): Message {
-    return MessageToJSONTyped(json, false);
+export function MessageContentToJSON(json: any): any {
+    return MessageContentToJSONTyped(json, false);
 }
 
-export function MessageToJSONTyped(value?: Message | null, ignoreDiscriminator: boolean = false): any {
+export function MessageContentToJSONTyped(value?: MessageContent | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
+    if (Array.isArray(value)) {
+        if (value.every(item => typeof item === 'object')) {
+            if (value.every(item => instanceOfContentPart(item))) {
+                return value.map(value => ContentPartToJSON(value as ContentPart));
+            }
+        }
+        return value;
+    }
 
-    return {
-        
-        'content': MessageContentToJSON(value['content']),
-        'role': value['role'],
-    };
+    return {};
 }
 

@@ -13,71 +13,62 @@
  */
 
 import { mapValues } from '../runtime';
-import type { MessageContent } from './MessageContent';
-import {
-    MessageContentFromJSON,
-    MessageContentFromJSONTyped,
-    MessageContentToJSON,
-    MessageContentToJSONTyped,
-} from './MessageContent';
-
 /**
  * 
  * @export
- * @interface Message
+ * @interface ImageUrl
  */
-export interface Message {
+export interface ImageUrl {
+    /**
+     * Optional detail level: "auto", "low", or "high"
+     * @type {string}
+     * @memberof ImageUrl
+     */
+    detail?: string | null;
     /**
      * 
-     * @type {MessageContent}
-     * @memberof Message
-     */
-    content: MessageContent;
-    /**
-     * "user", "assistant", "system"
      * @type {string}
-     * @memberof Message
+     * @memberof ImageUrl
      */
-    role: string;
+    url: string;
 }
 
 /**
- * Check if a given object implements the Message interface.
+ * Check if a given object implements the ImageUrl interface.
  */
-export function instanceOfMessage(value: object): value is Message {
-    if (!('content' in value) || value['content'] === undefined) return false;
-    if (!('role' in value) || value['role'] === undefined) return false;
+export function instanceOfImageUrl(value: object): value is ImageUrl {
+    if (!('url' in value) || value['url'] === undefined) return false;
     return true;
 }
 
-export function MessageFromJSON(json: any): Message {
-    return MessageFromJSONTyped(json, false);
+export function ImageUrlFromJSON(json: any): ImageUrl {
+    return ImageUrlFromJSONTyped(json, false);
 }
 
-export function MessageFromJSONTyped(json: any, ignoreDiscriminator: boolean): Message {
+export function ImageUrlFromJSONTyped(json: any, ignoreDiscriminator: boolean): ImageUrl {
     if (json == null) {
         return json;
     }
     return {
         
-        'content': MessageContentFromJSON(json['content']),
-        'role': json['role'],
+        'detail': json['detail'] == null ? undefined : json['detail'],
+        'url': json['url'],
     };
 }
 
-export function MessageToJSON(json: any): Message {
-    return MessageToJSONTyped(json, false);
+export function ImageUrlToJSON(json: any): ImageUrl {
+    return ImageUrlToJSONTyped(json, false);
 }
 
-export function MessageToJSONTyped(value?: Message | null, ignoreDiscriminator: boolean = false): any {
+export function ImageUrlToJSONTyped(value?: ImageUrl | null, ignoreDiscriminator: boolean = false): any {
     if (value == null) {
         return value;
     }
 
     return {
         
-        'content': MessageContentToJSON(value['content']),
-        'role': value['role'],
+        'detail': value['detail'],
+        'url': value['url'],
     };
 }
 

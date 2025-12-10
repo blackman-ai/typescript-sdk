@@ -12,8 +12,13 @@ src/models/Choice.ts
 src/models/CompletionOptions.ts
 src/models/CompletionRequest.ts
 src/models/CompletionResponse.ts
+src/models/ContentPart.ts
+src/models/ContentPartOneOf.ts
+src/models/ContentPartOneOf1.ts
+src/models/ImageUrl.ts
 src/models/InvalidateResponse.ts
 src/models/Message.ts
+src/models/MessageContent.ts
 src/models/Provider.ts
 src/models/SemanticCacheConfig.ts
 src/models/SemanticCacheStats.ts
